@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: bardly-api
+  name: bardly-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bardly-api
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: bardly-api
+    spec:
+      containers:
+      - image: bardly-api-app
+        name: bardly-api
+        imagePullPolicy: Never
+        resources: {}
+        ports:
+         - containerPort: 9000
+      initContainers:
+      - name: init-couchdb
+        image: busybox:1.28
+        command: ['sh', '-c', "until nslookup couchdb.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for couchdb; sleep 2; done"]
+      - name: init-redisdb
+        image: busybox:1.28
+        command: ['sh', '-c', "until nslookup redisdb.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for redisdb; sleep 2; done"]
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bardly-frontend
+  labels:
+    app: bardly-frontend
+spec:
+  # comment or delete the following line if you want to use a LoadBalancer
+  type: NodePort
+  # if your cluster supports it, uncomment the following to automatically create
+  # an external load-balanced IP for the frontend service.
+  #type: LoadBalancer
+  ports:
+    - port: 9000
+      #targetPort: 9001
+  selector:
+    app: bardly-api
