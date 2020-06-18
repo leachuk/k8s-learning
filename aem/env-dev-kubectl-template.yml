@@ -1,0 +1,121 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service: aem-author-dev
+  name: aem-author-dev
+  namespace: aeminternal
+spec:
+  selector:
+    app: aem-author-dev
+  ports:
+  - name: http
+    protocol: TCP
+    nodePort: 30001
+    port: 8080
+    targetPort: 8080
+  - name: debug
+    protocol: TCP
+    nodePort: 30002
+    port: 58242
+    targetPort: 58242
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service: aem-publish-dev
+  name: aem-publish-dev
+  namespace: aeminternal
+spec:
+  selector:
+    app: aem-publish-dev
+  ports:
+  - name: http
+    protocol: TCP
+    nodePort: 30003
+    port: 8080
+    targetPort: 8080
+  - name: debug
+    protocol: TCP
+    nodePort: 30004
+    port: 58242
+    targetPort: 58242
+  type: LoadBalancer
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: aem-author-dev
+spec:
+  selector:
+    matchLabels:
+      app: aem-author-dev
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: aem-author-dev
+    spec:
+      containers:
+      - image: aemdesign/aem:6.5.3.0
+        name: aem-author-dev
+        env:
+        - name: AEM_JVM_OPTS
+          value: -server -Xms248m -Xmx3524m -XX:MaxDirectMemorySize=256M -XX:+CMSClassUnloadingEnabled -Djava.awt.headless=true -Dorg.apache.felix.http.host=0.0.0.0 -Xdebug -Xrunjdwp:transport=dt_socket,server=y,address=58242,suspend=n
+        - name: AEM_RUNMODE
+          value: -Dsling.run.modes=author,crx3,crx3tar,dev
+        - name: TZ
+          value: Australia/Sydney
+        ports:
+        - containerPort: 8080
+          name: http
+        - containerPort: 58242
+          name: debug
+        volumeMounts:
+          - mountPath: "/aem/crx-quickstart/repository"
+            name: aem-author-dev-volume
+      volumes:
+        - name: aem-author-dev-volume
+          persistentVolumeClaim:
+            claimName: aem-author-dev
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: aem-publish-dev
+spec:
+  selector:
+    matchLabels:
+      app: aem-publish-dev
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: aem-publish-dev
+    spec:
+      containers:
+      - image: aemdesign/aem:6.5.3.0
+        name: aem-publish-dev
+        env:
+        - name: AEM_JVM_OPTS
+          value: -server -Xms248m -Xmx3524m -XX:MaxDirectMemorySize=256M -XX:+CMSClassUnloadingEnabled -Djava.awt.headless=true -Dorg.apache.felix.http.host=0.0.0.0 -Xdebug -Xrunjdwp:transport=dt_socket,server=y,address=58242,suspend=n
+        - name: AEM_RUNMODE
+          value: -Dsling.run.modes=publish,crx3,crx3tar,nosamplecontent
+        - name: TZ
+          value: Australia/Sydney
+        ports:
+        - containerPort: 8080
+          name: http
+        - containerPort: 58242
+          name: debug
+        volumeMounts:
+          - mountPath: "/aem/crx-quickstart/repository"
+            name: aem-publish-dev-volume
+      volumes:
+        - name: aem-publish-dev-volume
+          persistentVolumeClaim:
+            claimName: aem-publish-dev

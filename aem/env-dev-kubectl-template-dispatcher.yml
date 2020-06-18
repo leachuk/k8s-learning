@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-resource-group: MC_isbr-aks_isobarAKS_australiaeast
+  labels:
+    service: isobar-aem-dispatcher-dev
+  name: isobar-aem-dispatcher-dev
+  namespace: aeminternal
+spec:
+  selector:
+    app: isobar-aem-dispatcher-dev
+  ports:
+  - name: http
+    protocol: TCP
+    nodePort: 30006
+    port: 8080
+    targetPort: 8080
+  - name: debug
+    protocol: TCP
+    nodePort: 30005
+    port: 58242
+    targetPort: 58242
+  type: LoadBalancer
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: isobar-aem-dispatcher-dev
+spec:
+  selector:
+    matchLabels:
+      app: isobar-aem-dispatcher-dev
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: isobar-aem-dispatcher-dev
+    spec:
+      containers:
+      - image: aemdesign/dispatcher:4.3.3
+        name: isobar-aem-dispatcher-dev
+        env:
+        - name: RENDERER_HOST
+          value: "20.193.40.172"
+        - name: RENDERER_PORT
+          value: "8080"
+        - name: DISPATCHER_CONFIG
+          value: publish
+        ports:
+        - containerPort: 8080
+          name: http
+        - containerPort: 58242
+          name: debug
+        volumeMounts:
+          - mountPath: "/data/httpd/cache"
+            name: isobar-aem-dispatcher-dev-volume
+      volumes:
+        - name: isobar-aem-dispatcher-dev-volume
+          persistentVolumeClaim:
+            claimName: isobar-aem-dispatcher-dev
