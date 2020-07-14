@@ -55,6 +55,9 @@ spec:
             - mountPath: "/aem/crx-quickstart/logs"
               subPath: "aem-author-logs"
               name: aem-author-dev-volume
+            - mountPath: "/aem/crx-quickstart/launchpad"
+              subPath: "aem-author-launchpad"
+              name: aem-author-dev-volume
       volumes:
         - name: aem-author-dev-volume
           persistentVolumeClaim:
