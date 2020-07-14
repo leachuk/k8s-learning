@@ -7,10 +7,10 @@ metadata:
     app: nfs-test-volume
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   storageClassName: standard
   resources:
     requests:
-      storage: 8Gi
+      storage: 1Gi
 status: {}
 
