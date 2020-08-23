@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres-statefulset
+  labels:
+    app: local-lab
+spec:
+  serviceName: "postgres"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: local-lab
+  template:
+    metadata:
+      labels:
+        app: local-lab
+    spec:
+      securityContext:
+        runAsUser: 0
+        fsGroup: 0
+      containers:
+        - name: postgres
+          image: postgres:12
+          envFrom:
+            - configMapRef:
+                name: postgres-configuration
+          ports:
+            - containerPort: 5432
+              name: postgresdb
+          volumeMounts:
+            - name: pv-data
+              mountPath: /var/lib/postgresql/data
+              subPath: "postgres-data"
+              readOnly: false
+      volumes:
+        - name: pv-data
+          persistentVolumeClaim:
+            claimName: nfs-volumeclaim

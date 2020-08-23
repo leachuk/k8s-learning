@@ -1,0 +1,22 @@
+dbType: "postgres"
+useInPodPostgres: false
+
+externalDB:
+  dbUser: "postgres"
+  dbPassword: "postgresdefault0"
+  dbHost: "postgres-lab-postgresql"
+  dbPort: "5432"
+  dbDatabase: "gitea-db"
+
+service:
+  http:
+    serviceType: "NodePort"
+    NodePort: "32301"
+  ssh:
+    serviceType: "NodePort"
+    NodePort: "32302"
+
+resources:
+  gitea:
+    requests:
+      cpu: "50m"
