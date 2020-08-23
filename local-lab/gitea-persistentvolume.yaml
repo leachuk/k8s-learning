@@ -3,7 +3,7 @@ kind: PersistentVolume
 metadata:
   name: gitea-nfs-volume
   annotations:
-    pv.beta.kubernetes.io/gid: "12"
+    pv.beta.kubernetes.io/gid: "100"
   labels:
     app: gitea-lab-volume
 spec:
@@ -15,4 +15,4 @@ spec:
   storageClassName: standard
   nfs:
     server: 192.168.0.197
-    path: /data/media-8tb/k8s/volumes/gitea-lab
+    path: /data/home-lab/gitea
