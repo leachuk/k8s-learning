@@ -11,12 +11,18 @@ externalDB:
 service:
   http:
     serviceType: "NodePort"
-    NodePort: "32301"
+    nodePort: "32301"
+    externalHost: 192.168.0.44
   ssh:
     serviceType: "NodePort"
-    NodePort: "32302"
+    nodePort: "32302"
+    externalHost: 192.168.0.44
 
 resources:
   gitea:
     requests:
       cpu: "50m"
+
+persistence:
+  enabled: true
+  existingGiteaClaim: gitea-nfs-volumeclaim
