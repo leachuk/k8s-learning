@@ -1,0 +1,2 @@
+CREATE DATABASE "gitea-db";
+GRANT ALL PRIVILEGES ON DATABASE "gitea-db" TO postgres;

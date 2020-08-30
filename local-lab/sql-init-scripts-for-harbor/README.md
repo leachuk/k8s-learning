@@ -1,7 +1,7 @@
 # Bitnami Helm Habor Setup
 
 Test connect
-`psql postgres://postgres:postgresdefault0@192.168.0.199:31150/postgres`
+`psql postgres://postgres:postgresdefault0@192.168.0.199:31448/postgres`
 Once at the `postgres=#` prompt:
 - List all databases `\l`
 - Connect to a database `\c <database_name>`
@@ -20,9 +20,9 @@ To init the required databases when using an existing external server (rather th
 The below will prompt for postgres user password.
 
 ```
-psql -h 192.168.0.199 -p 31150 -U postgres -d postgres -a -f init-harbor-notaryserver.sql
+psql -h 192.168.0.199 -p 31448 -U postgres -d postgres -a -f init-harbor-notaryserver.sql
 
-psql -h 192.168.0.199 -p 31150 -U postgres -d postgres -a -f init-harbor-notarysigner.sql
+psql -h 192.168.0.199 -p 31448 -U postgres -d postgres -a -f init-harbor-notarysigner.sql
 
-psql -h 192.168.0.199 -p 31150 -U postgres -d postgres -a -f init-harbor-registry.sql
+psql -h 192.168.0.199 -p 31448 -U postgres -d postgres -a -f init-harbor-registry.sql
 ```
