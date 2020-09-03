@@ -1,7 +1,6 @@
 service:
   type: NodePort
-  port: 32501
-
+  nodePort: 32501
 
 resources:
   limits:
@@ -27,7 +26,7 @@ env:
   ## REQUIRED: Set the user-visible Drone hostname, sans protocol.
   ## Ref: https://docs.drone.io/installation/reference/drone-server-host/
   ##
-  DRONE_SERVER_HOST: "192.168.0.199"
+  DRONE_SERVER_HOST: "192.168.0.199:30082"
   ## The protocol to pair with the value in DRONE_SERVER_HOST (http or https).
   ## Ref: https://docs.drone.io/installation/reference/drone-server-proto/
   ##
@@ -38,13 +37,13 @@ env:
   ## key via a separately provisioned secret (see existingSecretName above).
   ## Ref: https://docs.drone.io/installation/reference/drone-rpc-secret/
   ##
-  DRONE_RPC_SECRET: homelab-drone-secret-lkajsdh98
+  DRONE_RPC_SECRET: BLHKsd1qTvCqz-biAnicLTmtF0qfNDUs19pvA04L9no=
 
   ## If you'd like to use a DB other than SQLite (the default), set a driver + DSN here.
   ## Ref: https://docs.drone.io/installation/storage/database/
   ##
   DRONE_DATABASE_DRIVER: postgres
-  DRONE_DATABASE_DATASOURCE: postgres://postgres:postgresdefault0@postgres-lab-postgresql:5432/postgres?sslmode=disable
+  DRONE_DATABASE_DATASOURCE: postgres://postgres:postgresdefault0@postgres-lab-postgresql.default:5432/postgres?sslmode=disable
 
   ## If you are going to store build secrets in the Drone database, it is suggested that
   ## you set a database encryption secret. This must be set before any secrets are stored
@@ -97,9 +96,9 @@ env:
   ## Gitea-specific variables. See the provider docs here:
   ## Ref: https://docs.drone.io/installation/providers/gitea/
   ##
-  DRONE_GITEA_CLIENT_ID: cd73699c-a8f5-4910-8ad6-6594192a262e
-  DRONE_GITEA_CLIENT_SECRET: BLHKsd1qTvCqz-biAnicLTmtF0qfNDUs19pvA04L9no=
-  DRONE_GITEA_SERVER: http://192.168.0.199:32501
+  DRONE_GITEA_CLIENT_ID: 41f715f5-d115-490d-acf1-983f864e607b
+  DRONE_GITEA_CLIENT_SECRET: db1-Ts5KVDxRbccseSn1beGmoGMKIDn8TyDBwhoewz4=
+  DRONE_GITEA_SERVER: http://192.168.0.199:32301
 
   ## Gogs-specific variables. See the provider docs here:
   ## Ref: https://docs.drone.io/installation/providers/gogs/
