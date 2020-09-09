@@ -1,0 +1,26 @@
+dbType: "postgres"
+useInPodPostgres: false
+
+externalDB:
+  dbUser: "postgres"
+  dbPassword: "postgresdefault0"
+  dbHost: "postgres-lab-postgresql"
+  dbPort: "5432"
+  dbDatabase: "gitea-test-db"
+
+service:
+  http:
+    serviceType: NodePort
+    nodePort: 32301
+  ssh:
+    serviceType: NodePort
+    nodePort: 32302
+
+resources:
+  gitea:
+    requests:
+      cpu: "50m"
+
+persistence:
+  enabled: true
+  existingGiteaClaim: gitea-test-nfs-volumeclaim
