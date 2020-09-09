@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: gitea-test-nfs-volume
+  annotations:
+    pv.beta.kubernetes.io/gid: "100"
+  labels:
+    app: gitea-test-lab-volume
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+  - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: standard
+  nfs:
+    server: 192.168.0.197
+    path: /data/home-lab/gitea-test

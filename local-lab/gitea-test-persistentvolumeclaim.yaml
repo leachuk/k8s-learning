@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: gitea-test-nfs-volumeclaim
+  namespace: default
+  labels:
+    app: gitea-test-lab-volume
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: standard
+  resources:
+    requests:
+      storage: 10Gi
+status: {}
+
