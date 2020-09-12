@@ -5,7 +5,7 @@ metadata:
 spec:
   containers:
     - name: alpine-sample
-      image: core.harbor.domain:32443/homelab/alpine:latest
+      image: 192.168.0.199:32443/homelab/alpine:latest
       command: ["/bin/sh","-c","echo 'Napping...' && sleep 10000"]
   imagePullSecrets:
     - name: harbor-registry-credentials
