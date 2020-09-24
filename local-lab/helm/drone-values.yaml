@@ -23,6 +23,9 @@ persistentVolume:
 ## Ref: https://docs.drone.io/installation/reference/
 ##
 env:
+  ## Custom addition to set an admin account. Required for DinD
+  DRONE_USER_CREATE: username:stewartleach,admin:true
+
   ## REQUIRED: Set the user-visible Drone hostname, sans protocol.
   ## Ref: https://docs.drone.io/installation/reference/drone-server-host/
   ##
