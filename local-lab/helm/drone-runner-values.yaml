@@ -19,3 +19,9 @@ env:
   ## Ref: https://kube-runner.docs.drone.io/installation/reference/drone-namespace-default/
   ##
   DRONE_NAMESPACE_DEFAULT: drone
+
+  ## Required for kubernetes secret extension
+  ## Ref: https://docs.drone.io/runner/extensions/kube/
+  ##
+  DRONE_SECRET_PLUGIN_ENDPOINT: http://drone-secrets-service
+  DRONE_SECRET_PLUGIN_TOKEN: 836613bc3259a2de983c387eefb6b567
