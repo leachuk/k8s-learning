@@ -11,3 +11,7 @@ In this case, the service is an "echo" of the k8s service definitions.
 Apply in this order:
 - `kubectl apply -f echotest-service.yaml`
 - `kubectl apply -f echotest-ingress.yaml`
+
+`kong` is a specific ingress controller which you can see defined in the `echotest-ingress.yaml` file annotation.
+It is listed in the k8s documentation at https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/
+
