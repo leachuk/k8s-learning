@@ -15,3 +15,10 @@ Apply in this order:
 `kong` is a specific ingress controller which you can see defined in the `echotest-ingress.yaml` file annotation.
 It is listed in the k8s documentation at https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/
 
+Once the service and ingress are created on your cluster, you can check the `ingress` exists
+
+`kubectl get ingress`
+```
+NAME        CLASS    HOSTS   ADDRESS     PORTS   AGE
+echo-demo   <none>   *       10.0.2.15   80      27s
+```
