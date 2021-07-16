@@ -12,6 +12,6 @@ spec:
             path: /foo
             backend:
               service:
-                name: echo-demo
+                name: echo
                 port:
                   number: 80
