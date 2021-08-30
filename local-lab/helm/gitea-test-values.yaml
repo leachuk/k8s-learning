@@ -6,7 +6,7 @@ externalDB:
   dbPassword: "postgresdefault0"
   dbHost: "postgres-lab-postgresql"
   dbPort: "5432"
-  dbDatabase: "gitea-test-db"
+  dbDatabase: "giteatest"
 
 service:
   http:
@@ -24,3 +24,4 @@ resources:
 persistence:
   enabled: true
   existingGiteaClaim: gitea-test-nfs-volumeclaim
+  existingPostgresClaim: nfs-volumeclaim
