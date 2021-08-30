@@ -29,7 +29,7 @@ env:
   ## REQUIRED: Set the user-visible Drone hostname, sans protocol.
   ## Ref: https://docs.drone.io/installation/reference/drone-server-host/
   ##
-  DRONE_SERVER_HOST: 192.168.0.199:32085
+  DRONE_SERVER_HOST: 192.168.0.94:32085
   ## The protocol to pair with the value in DRONE_SERVER_HOST (http or https).
   ## Ref: https://docs.drone.io/installation/reference/drone-server-proto/
   ##
@@ -101,7 +101,7 @@ env:
   ##
   DRONE_GITEA_CLIENT_ID: ff4de78f-4a61-4115-beea-eb6983b7d23f
   DRONE_GITEA_CLIENT_SECRET: y8wRT1GRy8LGMJumqRYz_WP0RLm67gq3ZmWrU05XoVo=
-  DRONE_GITEA_SERVER: http://192.168.0.199:32301
+  DRONE_GITEA_SERVER: http://192.168.0.94:32301
 
   ## Gogs-specific variables. See the provider docs here:
   ## Ref: https://docs.drone.io/installation/providers/gogs/

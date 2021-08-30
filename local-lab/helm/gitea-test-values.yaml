@@ -11,10 +11,10 @@ externalDB:
 service:
   http:
     serviceType: NodePort
-    nodePort: 32301
+    nodePort: 32401
   ssh:
     serviceType: NodePort
-    nodePort: 32302
+    nodePort: 32402
 
 resources:
   gitea:
