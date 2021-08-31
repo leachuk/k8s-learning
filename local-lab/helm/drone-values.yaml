@@ -1,6 +1,11 @@
+image:
+  repository: drone/drone
+  tag: 2.1.0
+  pullPolicy: IfNotPresent
+
 service:
   type: NodePort
-  nodePort: 32501
+  port: 32501
 
 resources:
   limits:
@@ -16,7 +21,7 @@ persistentVolume:
   ## using a DB other than SQLite, set this to false to avoid allocating unused storage.
   ## If set to false, Drone will use an emptyDir instead, which is ephemeral.
   ##
-  enabled: false
+  enabled: true
 
 ## The keys within the "env" map are mounted as environment variables on the Drone server pod.
 ## See the full reference of Drone server environment variables here:
@@ -29,7 +34,7 @@ env:
   ## REQUIRED: Set the user-visible Drone hostname, sans protocol.
   ## Ref: https://docs.drone.io/installation/reference/drone-server-host/
   ##
-  DRONE_SERVER_HOST: 192.168.0.94:32085
+  DRONE_SERVER_HOST: 192.168.0.94:31488
   ## The protocol to pair with the value in DRONE_SERVER_HOST (http or https).
   ## Ref: https://docs.drone.io/installation/reference/drone-server-proto/
   ##
@@ -45,8 +50,9 @@ env:
   ## If you'd like to use a DB other than SQLite (the default), set a driver + DSN here.
   ## Ref: https://docs.drone.io/installation/storage/database/
   ##
-  DRONE_DATABASE_DRIVER: postgres
-  DRONE_DATABASE_DATASOURCE: postgres://postgres:postgresdefault0@postgres-lab-postgresql.default:5432/postgres?sslmode=disable
+  #Disabling so SQLite db is used instead. This means data won't be persisted between restarts, but that should be ok
+  #DRONE_DATABASE_DRIVER: postgres
+  #DRONE_DATABASE_DATASOURCE: postgres://postgres:postgresdefault0@postgres-lab-postgresql.default:5432/postgres?sslmode=disable
 
   ## If you are going to store build secrets in the Drone database, it is suggested that
   ## you set a database encryption secret. This must be set before any secrets are stored
@@ -99,8 +105,8 @@ env:
   ## Gitea-specific variables. See the provider docs here:
   ## Ref: https://docs.drone.io/installation/providers/gitea/
   ##
-  DRONE_GITEA_CLIENT_ID: ff4de78f-4a61-4115-beea-eb6983b7d23f
-  DRONE_GITEA_CLIENT_SECRET: y8wRT1GRy8LGMJumqRYz_WP0RLm67gq3ZmWrU05XoVo=
+  DRONE_GITEA_CLIENT_ID: 789098c2-5c04-40b4-b5c2-5ff1a13fd391
+  DRONE_GITEA_CLIENT_SECRET: xYMmFAmxKfLQLAwDCRbSLHil-K0gk1e-H5q2ONDHtdU=
   DRONE_GITEA_SERVER: http://192.168.0.94:32301
 
   ## Gogs-specific variables. See the provider docs here:
