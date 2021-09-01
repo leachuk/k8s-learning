@@ -15,4 +15,4 @@ spec:
   storageClassName: standard
   nfs:
     server: 192.168.0.197
-    path: /data/home-lab/gitea
+    path: /data/home-lab/gitea-hp

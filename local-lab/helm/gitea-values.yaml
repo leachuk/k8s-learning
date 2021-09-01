@@ -1,6 +1,9 @@
 dbType: "postgres"
 useInPodPostgres: false
 
+images:
+  gitea: "gitea/gitea:1.15.0"
+
 externalDB:
   dbUser: "postgres"
   dbPassword: "postgresdefault0"
