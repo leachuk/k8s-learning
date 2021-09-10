@@ -9,6 +9,10 @@ service:
     serviceType: NodePort
     nodePort: 32502
 
+persistence:
+  enabled: true
+  existingGiteaClaim: gitea-local-pv-claim
+
 resources:
   gitea:
     requests:
