@@ -1,0 +1,15 @@
+dbType: "postgres"
+useInPodPostgres: true
+
+service:
+  http:
+    serviceType: NodePort
+    nodePort: 32501
+  ssh:
+    serviceType: NodePort
+    nodePort: 32502
+
+resources:
+  gitea:
+    requests:
+      cpu: "50m"
