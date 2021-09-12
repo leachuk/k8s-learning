@@ -11,7 +11,9 @@ service:
 
 persistence:
   enabled: true
-  existingGiteaClaim: gitea-local-pv-claim
+  storageClass: local-path
+  existingGiteaClaim: gitea-k3s-local-pvc
+  existingPostgresClaim: postgres-k3s-local-pvc
 
 resources:
   gitea:

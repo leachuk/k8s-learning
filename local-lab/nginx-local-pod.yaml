@@ -6,7 +6,7 @@ spec:
   volumes:
     - name: nginx-pv-storage
       persistentVolumeClaim:
-        claimName: gitea-local-pv-claim
+        claimName: gitea-k3s-local-pvc
   containers:
     - name: local-nginx-pv-container
       image: nginx
