@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: tiddlywiki
+  name: tiddlywiki
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tiddlywiki
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: tiddlywiki
+    spec:
+      containers:
+      - image: elasticdog/tiddlywiki
+        name: tiddlywiki
+        imagePullPolicy: IfNotPresent
+        resources: {}
+        ports:
+         - containerPort: 8080
+        args:
+         - "--version"
+        volumeMounts:
+          - mountPath: /tiddlywiki
+            name: tiddlywiki-claim
+      volumes:
+        - name: tiddlywiki-claim
+          persistentVolumeClaim:
+            claimName: tiddlywiki-nfs-volumeclaim
+      initContainers:
+      - name: init-tiddlywiki
+        image: elasticdog/tiddlywiki
+        args:
+          - "mynewwiki --init server"
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tiddlywiki-service
+  labels:
+    app: tiddlywiki-service
+spec:
+  # comment or delete the following line if you want to use a LoadBalancer
+  type: NodePort
+  # if your cluster supports it, uncomment the following to automatically create
+  # an external load-balanced IP for the frontend service.
+  #type: LoadBalancer
+  ports:
+    - port: 8080
+      #targetPort: 9001
+  selector:
+    app: tiddlywiki
