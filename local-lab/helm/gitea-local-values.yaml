@@ -1,0 +1,21 @@
+dbType: "postgres"
+useInPodPostgres: true
+
+service:
+  http:
+    serviceType: NodePort
+    nodePort: 32501
+  ssh:
+    serviceType: NodePort
+    nodePort: 32502
+
+persistence:
+  enabled: true
+  storageClass: local-path
+  existingGiteaClaim: gitea-k3s-local-pvc
+  existingPostgresClaim: postgres-k3s-local-pvc
+
+resources:
+  gitea:
+    requests:
+      cpu: "50m"

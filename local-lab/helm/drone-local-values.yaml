@@ -5,7 +5,7 @@ image:
 
 service:
   type: NodePort
-  nodePort: 32501 #setting this doesn't do anything. I haven't found a way to specify the external nodePort, like in gitea
+  nodePort: 32601 #setting this doesn't do anything. I haven't found a way to specify the external nodePort, like in gitea
 
 resources:
   limits:
@@ -34,7 +34,7 @@ env:
   ## REQUIRED: Set the user-visible Drone hostname, sans protocol.
   ## Ref: https://docs.drone.io/installation/reference/drone-server-host/
   ##
-  DRONE_SERVER_HOST: 192.168.0.94:31008
+  DRONE_SERVER_HOST: 127.0.0.1:31008
   ## The protocol to pair with the value in DRONE_SERVER_HOST (http or https).
   ## Ref: https://docs.drone.io/installation/reference/drone-server-proto/
   ##
@@ -107,7 +107,7 @@ env:
   ##
   DRONE_GITEA_CLIENT_ID: 2c989324-c7d7-4725-bb78-7cb529f80e2d
   DRONE_GITEA_CLIENT_SECRET: gfjEQwbc28y2hnfjCJ3oT3cg7PX1botS7y7oABmpvvGP
-  DRONE_GITEA_SERVER: http://192.168.0.94:32301
+  DRONE_GITEA_SERVER: http://127.0.0.1:32501
 
   ## Gogs-specific variables. See the provider docs here:
   ## Ref: https://docs.drone.io/installation/providers/gogs/
